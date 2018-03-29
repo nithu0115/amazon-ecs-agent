@@ -40,6 +40,10 @@ type semver struct {
 // * <x.y.z -- Matches a version less than the selector version
 // * x.y.z,a.b.c -- Matches if the version matches either of the two selector versions
 func (lhs Version) Matches(selector string) (bool, error) {
+	checkForNonSemver := strings.Split(string(lhs), ",")
+	if len(checkForNonSemver) == 2 {
+		lhs.matches(selector)
+	}
 	lhsVersion, err := parseSemver(string(lhs))
 	if err != nil {
 		return false, err
