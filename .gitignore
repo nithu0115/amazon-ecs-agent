@@ -1,5 +1,6 @@
 misc/certs/ca-certificates.crt
 misc/netkitten/netkitten
+/amazon-ecs-agent.iml
 out/
 coverage/
 _bin/
