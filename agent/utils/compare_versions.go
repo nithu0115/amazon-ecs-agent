@@ -42,7 +42,7 @@ type semver struct {
 func (lhs Version) Matches(selector string) (bool, error) {
 	checkForNonSemver := strings.Split(string(lhs), ",")
 	if len(checkForNonSemver) == 2 {
-		lhs.matches(selector)
+		return lhs.matches(selector), err
 	}
 	lhsVersion, err := parseSemver(string(lhs))
 	if err != nil {
