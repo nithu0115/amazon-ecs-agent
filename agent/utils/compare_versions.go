@@ -40,6 +40,18 @@ type semver struct {
 // * <x.y.z -- Matches a version less than the selector version
 // * x.y.z,a.b.c -- Matches if the version matches either of the two selector versions
 func (lhs Version) Matches(selector string) (bool, error) {
+	//check if input matches Docker API version(x.y) and call Docker comparator
+	checkForNonSemver := strings.Split(string(lhs), ",")
+	if len(checkForNonSemver) == 2 {
+		match, err := lhs.matches(selector)
+		if err != nil {
+			return false, err
+		}
+		if match {
+			return true, nil
+		}
+	}
+	// If input matches Semantic Versioning
 	lhsVersion, err := parseSemver(string(lhs))
 	if err != nil {
 		return false, err
